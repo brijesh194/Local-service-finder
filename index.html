@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillConnect - Local Skill Marketplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #333366;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-card:hover {
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        
+        .active-tab {
+            border-bottom: 3px solid var(--primary);
+            font-weight: 600;
+        }
+        
+        .chat-bubble {
+            border-radius: 1rem 1rem 1rem 0;
+            max-width: 70%;
+        }
+        
+        .chat-bubble.own {
+            border-radius: 1rem 1rem 0 1rem;
+            background-color: #e0e7ff;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c4734f7d-aeb4-4ab1-888d-b2b85bfe0144.png" alt="SkillConnect logo - a handshake icon in gradient colors" class="h-8 w-8 rounded-full">
+                        <span class="ml-2 text-xl font-bold text-gray-900">SkillConnect</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="#categories" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Categories</a>
+                        <a href="#how-it-works" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">How It Works</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <button class="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium">Sign In</button>
+                    <button class="ml-4 border border-black text-black hover:bg-gray-50 px-4 py-2 rounded-md text-sm font-medium">Sign Up</button>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                Connect with local skills in your area
+            </h1>
+            <p class="mt-6 text-xl max-w-3xl mx-auto">
+                Hire skilled professionals or offer your own services to neighbors in your community
+            </p>
+            <div class="mt-10 max-w-md mx-auto sm:max-w-none sm:flex sm:justify-center">
+                <div class="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5">
+                    <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-50 md:py-4 md:text-lg md:px-10">
+                        Find a Skill
+                    </a>
+                    <a href="#" class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-500 bg-opacity-20 hover:bg-opacity-30 md:py-4 md:text-lg md:px-10">
+                        Offer a Skill
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 mb-16">
+        <div class="bg-white rounded-lg shadow-xl p-6">
+            <div class="flex">
+                <div class="flex-grow">
+                    <input type="text" placeholder="What skill are you looking for?" class="w-full px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="flex-shrink-0">
+                    <input type="text" placeholder="Location" class="w-40 px-4 py-3 border-t border-b border-r border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-r-lg font-medium">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+        <h2 class="text-3xl font-bold text-center mb-10">Browse Popular Categories</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            <!-- Category 1 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-tools text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Home Services</h3>
+            </div>
+            
+            <!-- Category 2 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-graduation-cap text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Education</h3>
+            </div>
+            
+            <!-- Category 3 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-paint-brush text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Arts</h3>
+            </div>
+            
+            <!-- Category 4 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-dumbbell text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Fitness</h3>
+            </div>
+            
+            <!-- Category 5 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-laptop-code text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Tech</h3>
+            </div>
+            
+            <!-- Category 6 -->
+            <div class="category-card bg-white rounded-lg shadow-md p-6 text-center transition-all duration-300 cursor-pointer">
+                <div class="mx-auto h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mb-3">
+                    <i class="fas fa-camera-retro text-indigo-600"></i>
+                </div>
+                <h3 class="font-medium text-gray-900">Photography</h3>
+            </div>
+            
+            <!-- View All link -->
+            <div class="bg-white rounded-lg shadow-md p-6 text-center flex items-center justify-center">
+                <a href="#" class="text-indigo-600 font-medium hover:text-indigo-800">View All Categories <i class="fas fa-chevron-right ml-1"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Skills -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-10">Featured Skills</h2>
+            
+            <!-- Filters -->
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Sort by:</span>
+                    <select class="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <option>Most Popular</option>
+                        <option>Highest Rated</option>
+                        <option>Price Low-High</option>
+                        <option>Price High-Low</option>
+                        <option>Newest</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-600">Filter:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Available Today</button>
+                        <button class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Under ₹500</button>
+                        <button class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Verified</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Skills Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Skill Card 1 -->
+                <div class="skill-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+                    <div class="relative pb-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a50eb176-98ba-47da-b74c-a9b98a6dafae.png" alt="Home renovation work showing carpentry tools and wooden materials" class="absolute inset-0 h-full w-full object-cover">
+                        <span class="absolute top-4 right-4 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">Popular</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900">Carpentry & Furniture Repair</h3>
+                                <p class="text-gray-500">By Rajesh Kumar</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 text-gray-900">4.8</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div>
+                                <span class="text-2xl font-bold text-gray-900">₹450</span>
+                                <span class="text-gray-500 text-sm ml-1">per hour</span>
+                            </div>
+                            <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 2 -->
+                <div class="skill-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+                    <div class="relative pb-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1dd8f27c-a363-4650-8b6d-96bd0056a769.png" alt="Math tutor working with student at home, books and notes visible" class="absolute inset-0 h-full w-full object-cover">
+                        <span class="absolute top-4 right-4 bg-green-600 text-white text-xs px-2 py-1 rounded-full">Available Now</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900">Math Tutoring (Grade 6-12)</h3>
+                                <p class="text-gray-500">By Priya Sharma</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 text-gray-900">4.9</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div>
+                                <span class="text-2xl font-bold text-gray-900">₹300</span>
+                                <span class="text-gray-500 text-sm ml-1">per hour</span>
+                            </div>
+                            <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 3 -->
+                <div class="skill-card bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
+                    <div class="relative pb-48 overflow-hidden">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bd955b52-71fc-4bad-92dd-f4f32ed12d54.png" alt="Professional graphic designer working on branding project with digital tablet" class="absolute inset-0 h-full w-full object-cover">
+                        <span class="absolute top-4 right-4 bg-purple-600 text-white text-xs px-2 py-1 rounded-full">Verified</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900">Graphic Design</h3>
+                                <p class="text-gray-500">By Amit Patel</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1 text-gray-900">5.0</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex justify-between items-center">
+                            <div>
+                                <span class="text-2xl font-bold text-gray-900">₹1500</span>
+                                <span class="text-gray-500 text-sm ml-1">per project</span>
+                            </div>
+                            <button class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
+                    View All Skills <i class="fas fa-chevron-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div id="how-it-works" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 class="text-3xl font-bold text-center mb-16">How SkillConnect Works</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="text-center">
+                <div class="mx-auto h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+                    <span class="text-indigo-600 text-2xl font-bold">1</span>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Find or Post a Skill</h3>
+                <p class="text-gray-600">Browse skills you need or post your own services with details.</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="text-center">
+                <div class="mx-auto h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+                    <span class="text-indigo-600 text-2xl font-bold">2</span>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Connect & Book</h3>
+                <p class="text-gray-600">Message providers directly and book services at your convenience.</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="text-center">
+                <div class="mx-auto h-20 w-20 rounded-full bg-indigo-100 flex items-center justify-center mb-4">
+                    <span class="text-indigo-600 text-2xl font-bold">3</span>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Complete & Review</h3>
+                <p class="text-gray-600">Complete the service and leave reviews to help others.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="bg-indigo-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16">What People Are Saying</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2274e5aa-8799-4e55-a21c-c9c188b030f0.png" alt="Portrait of satisfied customer Neha Gupta" class="h-12 w-12 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="font-medium text-gray-900">Neha Gupta</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Found a fantastic math tutor for my son. His grades improved within a month!"</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/de572b3f-5283-43c8-a9a1-d50ef44736d8.png" alt="Portrait of happy homeowner Ravi Verma" class="h-12 w-12 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="font-medium text-gray-900">Ravi Verma</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"The carpenter I hired fixed all my furniture perfectly at very reasonable cost."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e00f839d-75c1-4489-829d-4e40082e5cf0.png" alt="Portrait of pleased business owner Sunita Jain" class="h-12 w-12 rounded-full">
+                        <div class="ml-4">
+                            <h4 class="font-medium text-gray-900">Sunita Jain</h4>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Got amazing logo design services for my new business through SkillConnect."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-indigo-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Connect With Local Skills?</h2>
+            <p class="text-xl text-indigo-200 max-w-3xl mx-auto mb-8">Join thousands who are building stronger communities through skill sharing.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="px-6 py-3 bg-white text-indigo-900 font-medium rounded-lg hover:bg-indigo-100">Sign Up As Seeker</button>
+                <button class="px-6 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-indigo-900">Sign Up As Provider</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">SkillConnect</h3>
+                    <p class="text-gray-400">Connecting local skills with community needs.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Browse Skills</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">How It Works</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Safety Tips</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Community Guidelines</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4186596b-5883-4921-acfb-f99dab0c0ce4.png" alt="SkillConnect small logo" class="h-8 w-8 rounded-full">
+                        <span class="ml-2 text-lg font-semibold">SkillConnect</span>
+                    </div>
+                    
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <!-- Login Modal (hidden by default) -->
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="loginModal">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Sign In to SkillConnect</h3>
+                    <button id="closeLoginModal" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="flex border-b mb-4">
+                    <button class="active-tab px-4 py-2 text-sm font-medium">Login</button>
+                    <button id="openSignupFromLogin" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">Sign Up</button>
+                </div>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                        </div>
+                        
+                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign In</button>
+                </form>
+                
+                <div class="mt-4">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="cancelLoginModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Elements
+const loginModal = document.getElementById("loginModal");
+const signupModal = document.getElementById("signupModal");
+
+const closeLoginModal = document.getElementById("closeLoginModal");
+const closeSignupModal = document.getElementById("closeSignupModal");
+const cancelLoginModal = document.getElementById("cancelLoginModal");
+
+// Open Signup when "Sign Up" clicked inside login modal
+document.getElementById("openSignupFromLogin").addEventListener("click", () => {
+    loginModal.classList.add("hidden");
+    signupModal.classList.remove("hidden");
+});
+
+// Open Login when "Already have an account? Login" clicked inside signup modal
+document.getElementById("openLoginFromSignup").addEventListener("click", () => {
+    signupModal.classList.add("hidden");
+    loginModal.classList.remove("hidden");
+});
+
+// Close buttons
+closeLoginModal.addEventListener("click", () => loginModal.classList.add("hidden"));
+closeSignupModal.addEventListener("click", () => signupModal.classList.add("hidden"));
+cancelLoginModal.addEventListener("click", () => loginModal.classList.add("hidden"));
+
+</script>
+<!-- Sign Up Modal (hidden by default) -->
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="signupModal">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Create SkillConnect Account</h3>
+                    <button id="closeSignupModal" class="text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="flex border-b mb-4">
+                    <button id="openLoginFromSignup" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">Login</button>
+                    <button class="active-tab px-4 py-2 text-sm font-medium">Sign Up</button>
+                </div>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="signup-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="signup-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="signup-email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="signup-password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="signup-location" class="block text-sm font-medium text-gray-700">Location</label>
+                        <input type="text" id="signup-location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex items-center">
+                            <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="terms" class="ml-2 block text-sm text-gray-700">I agree to SkillConnect's Terms of Service and Privacy Policy</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Create Account</button>
+                </form>
+                
+                <div class="mt-4">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="openLoginFromSignup" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">Already have an account? Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Profile Modal (hidden by default) -->
+    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="profileModal">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Provider Profile</h3>
+                        <button id="closeProfileModal" class="text-gray-400 hover:text-gray-500">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Left Column -->
+                        <div class="md:w-1/3">
+                            <div class="text-center">
+                                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b7e32ceb-b440-4f78-b6de-868fe66328a1.png" alt="Profile picture of carpenter Rajesh Kumar" class="h-32 w-32 rounded-full mx-auto mb-4">
+                                <h3 class="text-xl font-medium text-gray-900">Rajesh Kumar</h3>
+                                <p class="text-gray-600">Carpenter & Furniture Repair Specialist</p>
+                                
+                                <div class="mt-4 flex items-center justify-center">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                        <span class="ml-1 text-gray-900">4.8</span>
+                                        <span class="ml-1 text-gray-500">(23 reviews)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 flex justify-center space-x-4">
+                                    <button class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-phone-alt text-indigo-600"></i>
+                                    </button>
+                                    <button class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-envelope text-indigo-600"></i>
+                                    </button>
+                                    <button class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-share-alt text-indigo-600"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="mt-6">
+                                    <h4 class="font-medium text-gray-900 mb-2">About Rajesh</h4>
+                                    <p class="text-gray-600 text-sm">With over 10 years of experience in woodworking and furniture repair, I specialize in restoring old furniture to its original condition and creating custom wooden pieces.</p>
+                                </div>
+                                
+                                <div class="mt-4">
+                                    <h4 class="font-medium text-gray-900 mb-2">Skills</h4>
+                                    <div class="flex flex-wrap gap-2 justify-center">
+                                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Furniture Repair</span>
+                                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Cabinet Making</span>
+                                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Wood Finishing</span>
+                                        <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded-full text-xs">Custom Furniture</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column -->
+                        <div class="md:w-2/3">
+                            <div class="border-b pb-4 mb-4">
+                                <h4 class="text-lg font-medium text-gray-900 mb-3">Service Details</h4>
+                                
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Rate:</span>
+                                    <span class="font-medium">₹450 per hour</span>
+                                </div>
+                                
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Minimum Duration:</span>
+                                    <span class="font-medium">2 hours</span>
+                                </div>
+                                
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-700">Travel Charge:</span>
+                                    <span class="font-medium">₹50 per km beyond 10km</span>
+                                </div>
+                                
+                                <div class="flex justify-between">
+                                    <span class="text-gray-700">Availability:</span>
+                                    <span class="font-medium">Weekdays (9AM - 6PM)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h4 class="text-lg font-medium text-gray-900 mb-3">Portfolio</h4>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/64e950f8-34ba-4f31-95de-6e6f38d8da57.png" alt="Before and after photo of restored wooden chair" class="rounded-lg cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/625dd2f6-e343-42b4-9e9b-90cecbdca7cc.png" alt="Custom wooden bookshelf with glass doors" class="rounded-lg cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a2c2f67c-7ea9-4132-bc3d-a3dc43616f49.png" alt="Repaired antique wooden dining table" class="rounded-lg cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4f6054ad-dce0-43a1-a631-2e5fa4025bc0.png" alt="Handcrafted wooden bed frame with storage" class="rounded-lg cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c16c66f3-a7cc-4083-807a-db8cbc4bf3f5.png" alt="Restored vintage wooden wardrobe" class="rounded-lg cursor-pointer">
+                                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9aafc9f3-31b8-4f85-a3af-aba06a7359ec.png" alt="Custom wood carving detail on cabinet doors" class="rounded-lg cursor-pointer">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-medium text-gray-900 mb-3">Customer Reviews</h4>
+                                
+                                <!-- Review 1 -->
+                                <div class="border-b border-gray-200 pb-4 mb-4">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e59e1fb9-1e8d-4e3a-b46f-9a1c4656e6a6.png" alt="Profile picture of reviewer Vijay Mehta" class="h-8 w-8 rounded-full">
+                                            <div class="ml-2">
+                                                <h5 class="font-medium">Vijay Mehta</h5>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <span class="ml-1 text-xs text-gray-500">December 15, 2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm text-gray-600">"Rajesh restored my antique wooden chair beautifully. It looks like new! His attention to detail is amazing."</p>
+                                </div>
+                                
+                                <!-- Review 2 -->
+                                <div class="border-b border-gray-200 pb-4 mb-4">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/20dd7e23-8711-465a-929f-b6e85427a31e.png" alt="Profile picture of reviewer Sunita Reddy" class="h-8 w-8 rounded-full">
+                                            <div class="ml-2">
+                                                <h5 class="font-medium">Sunita Reddy</h5>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <span class="ml-1 text-xs text-gray-500">November 2, 2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm text-gray-600">"The custom bookshelf Rajesh made is perfect for our space. Excellent craftsmanship and very punctual."</p>
+                                </div>
+                                
+                                <!-- Review 3 -->
+                                <div class="border-b border-gray-200 pb-4 mb-4">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex items-center">
+                                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f41f460b-b403-4d28-bede-527ae5f5f5bb.png" alt="Profile picture of reviewer Anil Kapoor" class="h-8 w-8 rounded-full">
+                                            <div class="ml-2">
+                                                <h5 class="font-medium">Anil Kapoor</h5>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                                    <i class="fas fa-star-half-alt text-yellow-400 text-xs"></i>
+                                                    <span class="ml-1 text-xs text-gray-500">October 10, 2022</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm text-gray-600">"Great work repairing my dining table. Small delay in completion but the result was worth it."</p>
+                                </div>
+                                
+                                <div class="text-center mt-4">
+                                    <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800">View All Reviews (23)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">Book Now</button>
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Message</button>
+                    <button id="cancelProfileModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Save for Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal (hidden by default) -->
+    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="bookingModal">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Book Rajesh Kumar</h3>
+                        <button id="closeBookingModal" class="text-gray-400 hover:text-gray-500">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                        <div>
+                            <label for="booking-date" class="block text-sm font-medium text-gray-700">Date</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input type="date" id="booking-date" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-12 sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="booking-time" class="block text-sm font-medium text-gray-700">Time</label>
+                            <select id="booking-time" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option>9:00 AM</option>
+                                <option>10:00 AM</option>
+                                <option>11:00 AM</option>
+                                <option>12:00 PM</option>
+                                <option>1:00 PM</option>
+                                <option>2:00 PM</option>
+                                <option>3:00 PM</option>
+                                <option>4:00 PM</option>
+                                <option>5:00 PM</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="booking-duration" class="block text-sm font-medium text-gray-700">Duration</label>
+                            <select id="booking-duration" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option>2 hours</option>
+                                <option>3 hours</option>
+                                <option>4 hours</option>
+                                <option>Full day (8 hours)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="booking-location" class="block text-sm font-medium text-gray-700">Location</label>
+                            <input type="text" id="booking-location" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Enter your address">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="booking-notes" class="block text-sm font-medium text-gray-700">Special Instructions</label>
+                        <textarea id="booking-notes" rows="3" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md" placeholder="Describe what you need done..."></textarea>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-md mb-4">
+                        <h4 class="text-sm font-medium text-gray-700 mb-2">Payment Summary</h4>
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Service Fee (2 hours)</span>
+                            <span>₹900</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Travel Charge (5km)</span>
+                            <span>₹50</span>
+                        </div>
+                        <div class="border-t border-gray-200 my-2"></div>
+                        <div class="flex justify-between font-medium">
+                            <span>Total</span>
+                            <span>₹950</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="payment-method" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                        <select id="payment-method" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option>Pay Online (Credit/Debit, UPI)</option>
+                            <option>Cash on Delivery</option>
+                            <option>PayPal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="terms-conditions" name="terms-conditions" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms-conditions" class="font-medium text-gray-700">I agree to SkillConnect's Terms of Service</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm">Confirm Booking</button>
+                    <button id="cancelBookingModal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal (hidden by default) -->
+    <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="chatModal">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+            </div>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4 border-b pb-4">
+                        <div class="flex items-center">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/46e10996-b91b-4b95-b43e-a63297fb098f.png" alt="Profile picture of carpenter Rajesh Kumar" class="h-10 w-10 rounded-full">
+                            <div class="ml-3">
+                                <h3 class="text-base font-medium text-gray-900">Rajesh Kumar</h3>
+                                <p class="text-sm text-gray-500">Online</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button id="closeChatModal" class="text-gray-400 hover:text-gray-500">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-y-auto h-64 mb-4 space-y-2">
+                        <!-- Received Message -->
+                        <div class="flex items-start">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c3206ffe-6034-4598-98fb-409da758da23.png" alt="Small profile picture of carpenter Rajesh Kumar" class="h-8 w-8 rounded-full mr-2">
+                            <div class="bg-gray-100 px-4 py-2 rounded-lg chat-bubble">
+                                <p class="text-sm">Hello! Thanks for contacting me about carpentry services. How can I help you today?</p>
+                                <p class="text-right text-xs text-gray-500 mt-1">10:21 AM</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Sent Message -->
+                        <div class="flex items-start justify-end">
+                            <div class="bg-indigo-100 px-4 py-2 rounded-lg chat-bubble own">
+                                <p class="text-sm">Hi Rajesh, I have an antique wooden chair that needs repair. Could you take a look?</p>
+                                <p class="text-right text-xs text-gray-500 mt-1">10:23 AM</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Received Message -->
+                        <div class="flex items-start">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/649dc51c-e636-4aa3-94ac-ffe9024c8d40.png" alt="Small profile picture of carpenter Rajesh Kumar" class="h-8 w-8 rounded-full mr-2">
+                            <div class="bg-gray-100 px-4 py-2 rounded-lg chat-bubble">
+                                <p class="text-sm">Of course! Can you send me some photos of the damage? That would help me give you an accurate estimate.</p>
+                                <p class="text-right text-xs text-gray-500 mt-1">10:24 AM</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Attachment -->
+                        <div class="flex items-start justify-end">
+                            <div class="bg-indigo-50 px-4 py-2 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-image text-indigo-500 mr-2"></i>
+                                    <p class="text-sm text-indigo-500">chair_damage.jpg (1.2MB)</p>
+                                </div>
+                                <p class="text-right text-xs text-gray-500 mt-1">10:26 AM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                            <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                                <button class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 hover:bg-gray-100">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <input type="text" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-r-md pl-3 sm:text-sm border-gray-300" placeholder="Type your message...">
+                            </div>
+                            <button class="-ml-px relative inline-flex items-center space-x-2 px-3 py-2 border border-gray-300 text-sm font-medium rounded-r-md bg-indigo-600 text-white hover:bg-indigo-700">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Login Modal
+            const loginModal = document.getElementById('loginModal');
+            const openLoginButtons = document.querySelectorAll('[data-target="loginModal"]');
+            const closeLoginModal = document.getElementById('closeLoginModal');
+            const cancelLoginModal = document.getElementById('cancelLoginModal');
+            
+            // Sign Up Modal
+            const signupModal = document.getElementById('signupModal');
+            const openSignupButtons = document.querySelectorAll('[data-target="signupModal"]');
+            const closeSignupModal = document.getElementById('closeSignupModal');
+            const cancelSignupModal = document.getElementById('cancelSignupModal');
+            
+            // Profile Modal
+            const profileModal = document.getElementById('profileModal');
+            const openProfileButtons = document.querySelectorAll('[data-target="profileModal"]');
+            const closeProfileModal = document.getElementById('closeProfileModal');
+            const cancelProfileModal = document.getElementById('cancelProfileModal');
+            
+            // Booking Modal
+            const bookingModal = document.getElementById('bookingModal');
+            const openBookingButtons = document.querySelectorAll('[data-target="bookingModal"]');
+            const closeBookingModal = document.getElementById('closeBookingModal');
+            const cancelBookingModal = document.getElementById('cancelBookingModal');
+            
+            // Chat Modal
+            const chatModal = document.getElementById('chatModal');
+            const openChatButtons = document.querySelectorAll('[data-target="chatModal"]');
+            const closeChatModal = document.getElementById('closeChatModal');
+            
+            // Function to toggle modal visibility
+            function toggleModal(modal) {
+                modal.classList.toggle('hidden');
+            }
+            
+            // Add event listeners for login modal
+            openLoginButtons.forEach(button => {
+                button.addEventListener('click', () => toggleModal(loginModal));
+            });
+            closeLoginModal.addEventListener('click', () => toggleModal(loginModal));
+            cancelLoginModal.addEventListener('click', () => toggleModal(loginModal));
+            
+            // Add event listeners for signup modal
+            openSignupButtons.forEach(button => {
+                button.addEventListener('click', () => toggleModal(signupModal));
+            });
+            closeSignupModal.addEventListener('click', () => toggleModal(signupModal));
+            cancelSignupModal.addEventListener('click', () => toggleModal(signupModal));
+            
+            // Add event listeners for profile modal
+            openProfileButtons.forEach(button => {
+                button.addEventListener('click', () => toggleModal(profileModal));
+            });
+            closeProfileModal.addEventListener('click', () => toggleModal(profileModal));
+            cancelProfileModal.addEventListener('click', () => toggleModal(profileModal));
+            
+            // Add event listeners for booking modal
+            openBookingButtons.forEach(button => {
+                button.addEventListener('click', () => toggleModal(bookingModal));
+            });
+            closeBookingModal.addEventListener('click', () => toggleModal(bookingModal));
+            cancelBookingModal.addEventListener('click', () => toggleModal(bookingModal));
+            
+            // Add event listeners for chat modal
+            openChatButtons.forEach(button => {
+                button.addEventListener('click', () => toggleModal(chatModal));
+            });
+            closeChatModal.addEventListener('click', () => toggleModal(chatModal));
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target === loginModal) toggleModal(loginModal);
+                if (event.target === signupModal) toggleModal(signupModal);
+                if (event.target === profileModal) toggleModal(profileModal);
+                if (event.target === bookingModal) toggleModal(bookingModal);
+                if (event.target === chatModal) toggleModal(chatModal);
+            });
+            
+            // Mobile menu toggle functionality
+            const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Sample functionality for booking form
+            const bookingDuration = document.getElementById('booking-duration');
+            const serviceFeeDisplay = document.querySelector('[data-service-fee]');
+            
+            if (bookingDuration && serviceFeeDisplay) {
+                bookingDuration.addEventListener('change', function() {
+                    const hours = parseInt(this.value);
+                    const fee = hours * 450;
+                    serviceFeeDisplay.textContent = `₹${fee}`;
+                    
+                    // Update total
+                    document.querySelector('[data-total]').textContent = `₹${fee + 50}`;
+                });
+            }
+            
+            // Sample user registration flow
+            const userTypeButtons = document.querySelectorAll('[data-user-type]');
+            
+            userTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userType = this.getAttribute('data-user-type');
+                    console.log(`User selected: ${userType}`);
+                    // Here you would typically update UI or form fields based on selection
+                });
+            });
+        });
+    </script>
+</body>
+</html>

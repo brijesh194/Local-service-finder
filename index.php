@@ -63,7 +63,90 @@
     .hero-card img{width:100%;height:330px;object-fit:cover;transform:scale(1.04)}
     .hero-chip{position:absolute;left:16px;bottom:16px;background:rgba(2,6,23,.6);border:1px solid var(--border);padding:10px 12px;border-radius:14px;display:flex;gap:10px;align-items:center}
     .hero-flag{position:absolute;right:14px;top:14px;background:linear-gradient(90deg,var(--primary),var(--accent));color:#0b1220;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+    #animated_gradient_texts {
+  background: linear-gradient(270deg, #AF1740, #9ECAD6, #B13BFF, #FFCC00);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedGradient 8s ease infinite;
+}
 
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* close first heading color design */
+
+  /* heading animation color code */
+
+  #animated_gradient_text {
+  background: linear-gradient(270deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedGradient 8s ease infinite;
+}
+
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animated_gradient_texts {
+  background: linear-gradient(270deg, #67575bff, #9ECAD6, #3bffb7ff, #fc9b72ff);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedGradient 8s ease infinite;
+}
+
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* close first heading color design */
+
+  /* heading animation color code */
+
+  .animated_gradient_text {
+  background: linear-gradient(270deg, #1df77cff, #ff0011ff, #ffff00, #003cffff);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedGradient 8s ease infinite;
+}
+
+@keyframes animatedGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
     .section-head{display:flex;align-items:center;justify-content:space-between;margin-top:8px;margin-bottom:8px}
     .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
     .cat{padding:14px;border-radius:18px;border:1px solid var(--border);background:rgba(2,6,23,.45);transition:transform var(--speed) var(--ease), box-shadow var(--speed) var(--ease), border-color var(--speed) var(--ease)}
@@ -224,7 +307,7 @@
         <div class="muted">Trusted local services in <span id="cityLabel">Lucknow</span></div>
       </div>
       <nav class="nav-links">
-        <a href="#services">Services</a>
+        <a href="s.php">Services</a>
         <a href="#how">How it works</a>
         <a href="#providers">For Providers</a>
         <a href="#pricing">Pricing</a>
@@ -238,7 +321,7 @@
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <h1 class="fade-up">Trusted Plumbers, Electricians &amp; More — <span>Near You</span></h1>
+        <h1 class="fade-up" id="animated_gradient_texts">Trusted Plumbers, Electricians &amp; More — <span class="animated_gradient_texts">Near You</span></h1>
         <p class="fade-up" style="transition-delay:.08s">Verified professionals • Secure payments • Same-day bookings • KYC &amp; background-checked</p>
 
         <form id="searchForm" class="card search fade-up" style="transition-delay:.15s">
